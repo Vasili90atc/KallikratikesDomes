@@ -2,20 +2,21 @@ package gr.atc.training.locations;
 
 public class Municipality {
 
-	String code;
+	String municipalityCode;
 	String description;
+	String prefectureUnitCode;
 	
-	public Municipality(String code, String description) {
-		this.code = code;
+	public Municipality(String municipalityCode, String description, String prefectureUnitCode) {
+		this.municipalityCode = municipalityCode;
 		this.description = description;
+		this.prefectureUnitCode = prefectureUnitCode;
 	}
 	
-	public String getCode() {
-		return code;
+	public String getMunicipalityCode() {
+		return municipalityCode;
 	}
-	
-	public void setCode(String code) {
-		this.code = code;
+	public void setMunicipalityCode(String municipalityCode) {
+		this.municipalityCode = municipalityCode;
 	}
 	public String getDescription() {
 		return description;
@@ -23,4 +24,11 @@ public class Municipality {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	public String getPrefectureUnitCode() {
+		return prefectureUnitCode;
+	}
+	public void setPrefectureUnitCode(String prefectureUnitCode) {
+		this.prefectureUnitCode = prefectureUnitCode;
+	}
+	
 }

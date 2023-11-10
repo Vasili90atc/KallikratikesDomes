@@ -3,12 +3,24 @@ package gr.atc.training.locations;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class LocationService {
 	List <PrefectureUnit> prefectureUnits;
 	List <Municipality> municipalities;
 	List <Prefecture> prefectures;
 	List <MunicipalityUnit> municipalityUnits;
 	
+	public LocationService() {
+		ReadFromExcel r = new ReadFromExcel("Καλλικρατικές_Δομές.xlsx");
+		r.readFromSheets();
+		r.closeFile();
+		setMunicipalities(r.municipalities);
+		setMunicipalityUnits(r.municipalityUnits);
+		setPrefectures(r.prefectures);
+		setPrefectureUnits(r.prefectureUnits);
+	}
 	
 	public void setPrefectureUnits(List<PrefectureUnit> prefectureUnits) {
 		this.prefectureUnits = prefectureUnits;
@@ -41,38 +53,14 @@ public class LocationService {
 	}
 
 	List<Municipality> getMunicipalitiesByPrefectureUnit(String prefectureUnitCode){
-		// Vres tous dimous stous opoious anikei h dimotiki enotita
-		List<Prefecture> dimoi_tis_dim_enotitas = new ArrayList<Prefecture>();
-		for (int i=0; i<prefectures.size();i++) {
-			if (prefectures.get(i).getPrefectureCode().equals(prefectureUnitCode)) {
-				dimoi_tis_dim_enotitas.add(prefectures.get(i));
+		// Vres tous dimous tis periferiakis enotitas
+		List<Municipality> dimoi_tis_perif_enotitas = new ArrayList<Municipality>();
+		for (int i=0; i<municipalities.size();i++) {
+			if (municipalities.get(i).getPrefectureUnitCode().equals(prefectureUnitCode)) {
+				dimoi_tis_perif_enotitas.add(municipalities.get(i));
 			}
 		}
-		// Vres tis perifereiakes enotites stis opoies anikoun oi parapano dimoi kai ara i dimotiki enotita pou mas edosan
-		List<MunicipalityUnit> perif_enotites_tis_dim_enotitas = new ArrayList<MunicipalityUnit>();
-		for (int i=0; i>municipalityUnits.size(); i++) {
-			String kodikos_perif_enotitas = municipalityUnits.get(i).getMunicipalityUnitCode();
-			for (int j=0; j<dimoi_tis_dim_enotitas.size();j++) {
-				String kod_perif_enotitas_tou_dimou = dimoi_tis_dim_enotitas.get(i).getMunicipalityUnitCode();
-				if (kodikos_perif_enotitas.equals(kod_perif_enotitas_tou_dimou)) {
-					perif_enotites_tis_dim_enotitas.add(municipalityUnits.get(i));
-				}
-			}
-		}
-		
-		// Vres tis perifereis
-		List<Municipality> returnedMunicipalities = new ArrayList<>();
-		for (int i=0; i<municipalities.size(); i++) {
-			String kod_perif = municipalities.get(i).getCode();
-			for (int j=0; j<perif_enotites_tis_dim_enotitas.size(); j++) {
-				String kod_perif_periferiakis_enotitas = perif_enotites_tis_dim_enotitas.get(j).getMunicipalityCode();
-				if (kod_perif_periferiakis_enotitas.equals(kod_perif)) {
-					returnedMunicipalities.add(municipalities.get(i));
-				}
-			}
-		}
-		
-		return returnedMunicipalities;
+		return dimoi_tis_perif_enotitas;
 	}
 
 

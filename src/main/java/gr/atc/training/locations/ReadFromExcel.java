@@ -1,6 +1,7 @@
 package gr.atc.training.locations;
 
 import java.io.FileInputStream;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -44,20 +45,22 @@ public class ReadFromExcel {
 			return;
 		}
 		// Municipality
-		XSSFSheet sheet = workbook.getSheet("Περιφέρειες");
+		XSSFSheet sheet = workbook.getSheet("Δήμος");
 		Iterator<Row> rowIterator = sheet.iterator();
 		while (rowIterator.hasNext()) {
 			Row row = rowIterator.next();
 			Iterator<Cell> cellIterator = row.cellIterator();
 			Cell cell = cellIterator.next();
-			String code = cell.getStringCellValue();
+			String municipCode = cell.getStringCellValue();
 			cell = cellIterator.next();
 			String desc = cell.getStringCellValue();
-			municipalities.add(new Municipality(code, desc));
+			cell = cellIterator.next();
+			String prefectureUnitCode = cell.getStringCellValue();
+			municipalities.add(new Municipality(municipCode, desc, prefectureUnitCode));
 		}
 
 		// Municipality Units
-		sheet = workbook.getSheet("Περιφερειακή Ενότητα");
+		sheet = workbook.getSheet("Δημοτική Ενότητα");
 		rowIterator = sheet.iterator();
 		while (rowIterator.hasNext()) {
 			Row row = rowIterator.next();
@@ -72,7 +75,7 @@ public class ReadFromExcel {
 		}
 
 		// Prefecture
-		sheet = workbook.getSheet("Δήμος");
+		sheet = workbook.getSheet("Περιφέρειες"); 
 		rowIterator = sheet.iterator();
 		while (rowIterator.hasNext()) {
 			Row row = rowIterator.next();
@@ -81,13 +84,11 @@ public class ReadFromExcel {
 			String prefectureCode = cell.getStringCellValue();
 			cell = cellIterator.next();
 			String desc = cell.getStringCellValue();
-			cell = cellIterator.next();
-			String municipUnitCode = cell.getStringCellValue();
-			prefectures.add(new Prefecture(prefectureCode, desc, municipUnitCode));
+			prefectures.add(new Prefecture(prefectureCode, desc));
 		}
 
 		// Prefecture Unit
-		sheet = workbook.getSheet("Δημοτική Ενότητα");
+		sheet = workbook.getSheet("Περιφερειακή Ενότητα");
 		rowIterator = sheet.iterator();
 		while (rowIterator.hasNext()) {
 			Row row = rowIterator.next();
