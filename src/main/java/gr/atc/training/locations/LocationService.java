@@ -3,6 +3,7 @@ package gr.atc.training.locations;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -41,6 +42,8 @@ public class LocationService {
 		this.municipalityUnits = municipalityUnits;
 	}
 	
+	
+	
 
 	List<PrefectureUnit> getPrefectureUnitsByPrefecture(String prefectureCode){
 		List<PrefectureUnit> returnedPrefUnits = new ArrayList<PrefectureUnit>();
@@ -62,6 +65,9 @@ public class LocationService {
 		}
 		return dimoi_tis_perif_enotitas;
 	}
+	
+
+
 
 
 	public List<MunicipalityUnit> getMunicipalityUnitsByMunicipality(String municipalityCode) {
@@ -74,5 +80,14 @@ public class LocationService {
 		return returendMunicipalityUnits;
 	}
 
+	public List<PrefectureUnit> getPrefectureUnitByName(String Name) {
+	List<PrefectureUnit> returnedPrefUnitsName = new ArrayList<PrefectureUnit>();
+		for (int i=0; i<prefectureUnits.size(); i++) {
+			if (prefectureUnits.get(i).getDescription().startsWith(Name)) {
+				returnedPrefUnitsName.add(prefectureUnits.get(i));
+			}
+		}
+		return returnedPrefUnitsName;
+	}
 
 }

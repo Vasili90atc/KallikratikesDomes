@@ -5,6 +5,7 @@ public class PrefectureUnit {
 	String prefectureUnitCode;
 	String description;
 	String prefectureCode;
+	String prefectureUnitsByName;
 	
 	public PrefectureUnit(String prefectureUnitCode, String description, String prefectureCode) {
 		this.prefectureCode = prefectureCode;
@@ -29,6 +30,13 @@ public class PrefectureUnit {
 	public void setPrefectureUnitCode(String prefectureUnitCode) {
 		this.prefectureUnitCode = prefectureUnitCode;
 	}
+	public String getPrefectureUnitsByName() {
+		return prefectureUnitsByName;
+	}
+	public void setPrefectureUnitsByName(String Name) {
+		this.prefectureUnitsByName = Name;
+	}
+	
 	
 	
 

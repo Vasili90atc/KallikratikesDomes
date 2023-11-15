@@ -1,6 +1,7 @@
 package gr.atc.training.locations;
 
 import org.springframework.web.bind.annotation.RestController;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,9 +35,15 @@ public class LocationController {
 		return ResponseEntity.ok(municipalityUnits);
 	}
 	
+	@GetMapping("/prefectureUnitsByName/{name}")
+	public ResponseEntity<List<PrefectureUnit>> getPrefectureUnitsByName(@PathVariable String name) {
+		List<PrefectureUnit> prefectureUnitsbyname= locationService.getPrefectureUnitByName(name);
+		return ResponseEntity.ok(prefectureUnitsbyname);
+	}
+	
 	@GetMapping("/")
 	public ResponseEntity<String> get_hello(){
 		return ResponseEntity.ok("Hi, welcome to kallikratikes domes application.");
 	}
+	
 }
-
